@@ -15,6 +15,7 @@ $app = new \Slim\Slim(array('debug' => TRUE,
 
 ));
 
+
 //------------------------- GET Route ----------------------------------
 
 $app->get('/', function () use ($app){
@@ -25,6 +26,12 @@ $app->get('/ajout', function () use ($app){
     $app->render('/ajout.html', array("mainBars" => mainBars()));
 });
 
+$app->get('/visualisation/:id', function ($id) use ($app){
+    $app->render('/visualisation.html', array("data" => liste_atelier($id), "mainBars" => mainBars()));
+});
+
+//$app->get('/visualisation')
+
 //------------------------- POST Route ----------------------------------
 
 $app->post('/ajout', function () use ($app){
@@ -32,7 +39,27 @@ $app->post('/ajout', function () use ($app){
     $app->redirect('/site1.com/', array());
 });
 
+//TODO : change this route to PUT
+$app->post('/modifier', function () use ($app){
+    $id = $_POST["id"];
+    $titre = $_POST["titre"];
+    $theme = $_POST["theme"];
+    $type = $_POST["type"];
+    $laboratoire = $_POST["laboratoire"];
+    $lieu = $_POST["lieu"];
+    $duree = $_POST["duree"];
+    $capacite = $_POST["capacite"];
+    $horaire = $_POST["horaire"];
+    modification_atelier($id, $titre, $theme, $type, $laboratoire, $lieu, $duree, $capacite, $horaire);
+    $app->redirect('/site1.com/', array());
+});
 
+
+$app->post('/supprimer', function () use ($app){
+    $id = $_POST["id"];
+    suppression_atelier($id);
+    $app->redirect('/site1.com/', array());
+});
 //------------------------- DB Function ---------------------------------
 
 
@@ -50,7 +77,7 @@ function liste_atelier($atelierID = "none"){
       $res[]= $row;
     }
     return $res;
-    closeDB($mysqli);
+    closeDB();
 }
 
 function ajout_atelier($titre, $theme, $typeAtel, $laboratoire, $lieu, $duree, $capacite, $horaire){
@@ -63,18 +90,28 @@ function ajout_atelier($titre, $theme, $typeAtel, $laboratoire, $lieu, $duree, $
 }
 
 function modification_atelier($id, $titre, $theme, $typeAtel, $laboratoire, $lieu, $duree, $capacite, $horaire){
-
+    $mysqli = initDB();
+  if($mysqli){
+    $query = sprintf("UPDATE ateliers SET titre= \"%s\", theme= \"%s\", typeAtel= \"%s\", laboratoire= \"%s\", lieu= \"%s\", duree= \"%s\", capacite= \"%s\", horaire= \"%s\" WHERE id= %s ;", $titre, $theme, $typeAtel, $laboratoire, $lieu, $duree, $capacite, $horaire, $id);
+    $res_query = mysqli_query($mysqli, $query);
+  }
+  closeDB($mysqli);//On ferme la database a la fin des fonctions ici tant qu'on a pas d'informations de session
 }
 
 function suppression_atelier($id){
-
+    $mysqli = initDB();
+  if($mysqli){
+    $query = sprintf("DELETE FROM ateliers WHERE id= %s", $id);
+    $res_query = mysqli_query($mysqli, $query);
+  }
+  closeDB($mysqli);//On ferme la database a la fin des fonctions ici tant qu'on a pas d'informations de session
 }
 
 //------------------------- DB Connexion ---------------------------------
 
 
 function initDB(){
-  $host = "localhost";
+  $host = "site1.com";
   $user = "root";
   $password = "root";
   $db = "CDP_BDD";
@@ -105,6 +142,7 @@ function mainBars(){
           </div>
         </nav>';
 }
+
 
 /**
  * Step 4: Run the Slim application
