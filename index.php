@@ -34,7 +34,26 @@ function suppression_atelier($id){
 
 }
 
+unction initDB(){
+  $host = "localhost";
+  $user = "root";
+  $password = "root";
+  $db = "CDP_BDD";
+  $mysqli = NULL;
+  try{
+    //$mysqli = new mysqli($host, $user, $password, $db);
+    $mysqli = mysqli_connect($host,$user,$password,$db) or die('Error connecting to databse');
+  }
+  catch(Exception $e){
+    die("Erreur de Connexion : ".mysqli_connect_error());
+  }
+  return $mysqli;
+}
 
+
+function closeDB($DB){
+  mysqli_close($DB);
+}
 
 
 /**
