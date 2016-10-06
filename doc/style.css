@@ -1,0 +1,14 @@
+table
+{
+    border-collapse: collapse;
+	margin: auto;
+	width: 50%;
+	vertical-align: middle;
+	
+}
+
+td, th
+{
+    border: 1px solid black;
+	text-align: center;
+}
