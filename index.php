@@ -32,11 +32,25 @@ $app->post('/ajout', function () use ($app){
     $app->redirect('/site1.com/', array());
 });
 
+
 //------------------------- DB Function ---------------------------------
 
 
 function liste_atelier($atelierID = "none"){
-
+  $mysqli = initDB();
+  if($atelierID == "none"){
+    $query = "SELECT * FROM ateliers";
+  }
+  else{
+        $query = sprintf("SELECT * FROM ateliers WHERE id=%s", $atelierID);
+  }
+  $res_query = $mysqli->query($query);
+    $res = array();
+    while ($row = $res_query->fetch_assoc()) {
+      $res[]= $row;
+    }
+    return $res;
+    closeDB($mysqli);
 }
 
 function ajout_atelier($titre, $theme, $typeAtel, $laboratoire, $lieu, $duree, $capacite, $horaire){

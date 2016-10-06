@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/site1.com/lib/DataTables-1.10.12/media/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="/site1.com/lib/bootstrap-3.3.6-dist/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/site1.com/lib/jquery/jquery-2.2.4.js"></script>
+    <script src="/site1.com/lib/DataTables-1.10.12/media/js/jquery.dataTables.js"></script>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Home</title>
+ 
+
+  </head>
+
+  <body>
+
+    <?php echo $mainBars; ?>
+
+    <h1>Ateliers Disponibles</h1>
+
+    <br />
+<table id="list" class="display" cellspacing="0" width="100%">
+              <thead>
+
+      <tr>
+        <td>id</td>
+        <td>Titre</td>
+        <td>Thème</td>
+        <td>Type</td>
+        <td>Laboratoire</td>
+        <td>Lieu</td>
+        <td>Durée</td>
+        <td>Capacite</td>
+        <td>Horaire</td>
+      </tr>
+      </thead>
+
+
+      <?php
+        //Remplissage du tableau automatiquement
+        for($i=0; $i<count($liste); $i++){
+          echo "<tr>";
+          foreach ($liste[$i] as $key) {
+            echo "<td>";
+            echo $key;
+            echo "</td>";
+            }
+          echo "</tr>";
+        }       
+      ?>
+    </table>
+    <a href="/site1.com/ajout" class="btn btn-info" role="button">Ajout Atelier</a>
+
+  </body>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#list').DataTable();
+  });
+
+  $('#list tbody').on('click', 'tr', function () {
+    var id = $('td', this).eq(0).text();
+    window.location.assign("/site1.com/visualisation/"+id);
+  });
+</script>
+
+</html>
