@@ -15,6 +15,23 @@ $app = new \Slim\Slim(array('debug' => TRUE,
 
 ));
 
+//------------------------- GET Route ----------------------------------
+
+$app->get('/', function () use ($app){
+    $app->render('/home.html', array("liste" => liste_atelier(), "mainBars" => mainBars()));
+});
+
+$app->get('/ajout', function () use ($app){
+    $app->render('/ajout.html', array("mainBars" => mainBars()));
+});
+
+//------------------------- POST Route ----------------------------------
+
+$app->post('/ajout', function () use ($app){
+    ajout_atelier($_POST["titre"], $_POST["theme"], $_POST["type"], $_POST["laboratoire"], $_POST["lieu"], $_POST["duree"], $_POST["capacite"], $_POST["horaire"]);
+    $app->redirect('/site1.com/', array());
+});
+
 //------------------------- DB Function ---------------------------------
 
 
@@ -23,7 +40,12 @@ function liste_atelier($atelierID = "none"){
 }
 
 function ajout_atelier($titre, $theme, $typeAtel, $laboratoire, $lieu, $duree, $capacite, $horaire){
-
+  $mysqli = initDB();
+  if($mysqli){
+    $query = sprintf("INSERT INTO ateliers VALUES (NULL, \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\");", $titre, $theme, $typeAtel, $laboratoire, $lieu, $duree, $capacite, $horaire);
+    $res_query = mysqli_multi_query($mysqli, $query);
+  }
+  closeDB($mysqli);//On ferme la database a la fin des fonctions ici tant qu'on a pas d'informations de session
 }
 
 function modification_atelier($id, $titre, $theme, $typeAtel, $laboratoire, $lieu, $duree, $capacite, $horaire){
@@ -34,7 +56,10 @@ function suppression_atelier($id){
 
 }
 
-unction initDB(){
+//------------------------- DB Connexion ---------------------------------
+
+
+function initDB(){
   $host = "localhost";
   $user = "root";
   $password = "root";
@@ -55,6 +80,17 @@ function closeDB($DB){
   mysqli_close($DB);
 }
 
+
+function mainBars(){
+  echo '<nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <ul class="nav navbar-nav">
+              <li> <a href="/site1.com/">Home</a> </li>
+              <li> <a href="/site1.com/ajout">Ajout</a> </li>
+            </ul>
+          </div>
+        </nav>';
+}
 
 /**
  * Step 4: Run the Slim application
