@@ -1,0 +1,220 @@
+_C<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>Test_CdP</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Test_CdP</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/site1.com/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>id=list_info</td>
+	<td>v1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Ajout Atelier</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=titre</td>
+	<td>Conférence sur la vie et la mort</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=theme</td>
+	<td>Métaphysique</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=type</td>
+	<td>Atelier Philosophique</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=laboratoire</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=lieu</td>
+	<td>Salle de shoot numéro 13</td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>javascript{Math.floor(Math.random()*300)}</td>
+	<td>v3</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=duree</td>
+	<td>${v3}</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=capacite</td>
+	<td>42</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=horaire</td>
+	<td>2042-09-11 10:42:42</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.btn.btn-info</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>id=list_info</td>
+	<td>v2</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>storedVars['v1']==storedVars['v2']</td>
+	<td>false</td>
+</tr>
+<!--Fin Test Ajout-->
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;search&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=input[type=&quot;search&quot;]</td>
+	<td>${v3}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr/td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.document.domain</td>
+	<td>localhost</td>
+</tr>
+<tr>
+	<td>assertNotLocation</td>
+	<td>http://localhost/site1.com/visualisation/No matching records found</td>
+	<td></td>
+</tr>
+<!--Fin Test Listage-->
+<tr>
+	<td>pause</td>
+	<td></td>
+	<td>3000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=modif</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=titre</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=titre</td>
+	<td></td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>Conférence sur le droit du travail</td>
+	<td>v4</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=titre</td>
+	<td>${v4}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=ok</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;search&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=input[type=&quot;search&quot;]</td>
+	<td>${v4}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr/td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.document.domain</td>
+	<td>localhost</td>
+</tr>
+<tr>
+	<td>assertNotLocation</td>
+	<td>http://localhost/site1.com/visualisation/No matching records found</td>
+	<td></td>
+</tr>
+<!--Fin Test Modification-->
+<tr>
+	<td>pause</td>
+	<td></td>
+	<td>3000</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.btn.btn-danger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;search&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=input[type=&quot;search&quot;]</td>
+	<td>${v4}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr/td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.document.domain</td>
+	<td>localhost</td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertLocation</td>
+	<td>http://localhost/site1.com/visualisation/No%20matching%20records%20found</td>
+	<td></td>
+</tr>
+<!--Fin Test Suppression-->
+</tbody></table>
+</body>
+</html>
